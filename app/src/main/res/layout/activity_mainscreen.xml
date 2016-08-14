@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#000"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="first.com.oftalk.mainscreen">
+
+    <com.skyfishjy.library.RippleBackground
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content"
+        app:rb_color="#bb1a288c"
+        app:rb_radius="32dp"
+        app:rb_rippleAmount="4"
+        app:rb_duration="2000"
+        app:rb_scale="6">
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:gravity="center"
+    android:layout_centerInParent="true"
+    android:background="@drawable/ring1">
+
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/phone1"
+                android:id="@+id/phone12"/>
+</RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="450dp"
+            android:layout_height="450dp"
+            android:gravity="center|top"
+            android:layout_centerInParent="true"
+            >
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button"
+                />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="85dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/wifi"
+                android:id="@+id/wifi"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="450dp"
+            android:layout_height="450dp"
+            android:gravity="center|left"
+            android:layout_centerInParent="true"
+            >
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:background="@drawable/button"
+                />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/image2"
+                android:id="@+id/call"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:gravity="center|right"
+        android:layout_centerInParent="true"
+        >
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:background="@drawable/button"
+            />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/text2"
+            android:id="@+id/chat"/>
+    </RelativeLayout>
+
+        <RelativeLayout
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:gravity="center|bottom"
+        android:layout_centerInParent="true"
+        >
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button"
+           />
+
+        <Button
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/setting"
+            android:id="@+id/settings"/>
+    </RelativeLayout>
+
+    </com.skyfishjy.library.RippleBackground>
+
+
+ </RelativeLayout>
+
+
+
+
+

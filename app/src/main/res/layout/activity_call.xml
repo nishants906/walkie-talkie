@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/w"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context="first.com.oftalk.call">
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_margin="20dp"
+    android:gravity="center"
+    android:background="@drawable/b4">
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/record"/>
+    <ImageView
+        android:id="@+id/stop"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/stop"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/play2"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>
+</RelativeLayout>
