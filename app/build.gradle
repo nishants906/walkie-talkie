@@ -29,5 +29,6 @@ dependencies {
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
     compile 'com.github.chenupt.android:multiplemodel:1.1.0@aar'
+    compile 'com.xgc1986.android:parallaxpagertransformer:1.0.4'
 
 }

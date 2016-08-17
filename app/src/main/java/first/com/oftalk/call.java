@@ -8,15 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
 
 public class call extends AppCompatActivity implements View.OnClickListener {
-    ImageView play,stop,record;
+    ImageView play,stop,record,send;
     String file=null;
     MediaRecorder recorder;
     MediaPlayer player;
+    RelativeLayout rl1,rl2,rl3;
 
 
     @Override
@@ -27,10 +29,17 @@ public class call extends AppCompatActivity implements View.OnClickListener {
         play= (ImageView) findViewById(R.id.play);
         stop= (ImageView) findViewById(R.id.stop);
         record= (ImageView) findViewById(R.id.start);
+        send= (ImageView) findViewById(R.id.send);
+        rl1= (RelativeLayout) findViewById(R.id.rl1);
+        rl2= (RelativeLayout) findViewById(R.id.rl2);
+
+
+        rl3= (RelativeLayout) findViewById(R.id.rl3);
 
         play.setOnClickListener(this);
         stop.setOnClickListener(this);
         record.setOnClickListener(this);
+        send.setOnClickListener(this);
         file= Environment.getExternalStorageDirectory().getAbsolutePath() + "/myrec.3gp";
 
 
@@ -65,25 +74,40 @@ public class call extends AppCompatActivity implements View.OnClickListener {
                 recorder.stop();
                 recorder.release();
                 stop.setVisibility(View.GONE);
-                play.setVisibility(View.VISIBLE);
+                rl1.setVisibility(View.GONE);
+                rl2.setVisibility(View.VISIBLE);
+                rl3.setVisibility(View.VISIBLE);
                 recorder = null;
                 Toast.makeText(this, "Audio Recorded Successfully", Toast.LENGTH_SHORT).show();
                 break;
             }
-            case R.id.play:{
+            case R.id.play: {
 
                 player = new MediaPlayer();
                 try {
                     player.setDataSource(file);
                     player.prepare();
                     player.start();
-                    play.setVisibility(View.GONE);
+                    rl1.setVisibility(View.VISIBLE);
+                    rl2.setVisibility(View.INVISIBLE);
+                    rl3.setVisibility(View.INVISIBLE);
                     record.setVisibility(View.VISIBLE);
 
                 } catch (IOException e) {
                     Log.e("failedresult2", "prepare() failed");
                 }
                 break;
+            }
+                case R.id.send:{
+     /*               String sharePath = Environment.getExternalStorageDirectory().getPath()+"/myrec.3gp";
+                    Uri uri = Uri.parse(sharePath);
+                    Intent share =new Intent(Intent.ACTION_SEND); share.setType("audio/*");
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    startActivity(Intent.createChooser(share,"Share Sound File"));
+*/
+
+
+
             }
         }
 

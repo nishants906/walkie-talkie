@@ -28,7 +28,8 @@
         <activity android:name=".call" />
         <activity android:name=".settings" />
         <activity android:name=".chat" />
-        <activity android:name=".intro"></activity>
+        <activity android:name=".intro" />
+
     </application>
 
 </manifest>

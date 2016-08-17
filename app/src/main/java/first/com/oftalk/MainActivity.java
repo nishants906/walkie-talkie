@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     TextView text1;
-    ViewPager pager;
+
 
 
     @Override
@@ -22,15 +22,33 @@ public class MainActivity extends AppCompatActivity {
         text1= (TextView) findViewById(R.id.text1);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/3Dumb.ttf");
         text1.setTypeface(custom_font);
+/*        DBHandler db=new DBHandler(getApplicationContext());
+        db.addlogin(1);
+        int login=db.onlogin();
 
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {Intent intent=new Intent(MainActivity.this,intro.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                finish();
-            }
-        }, 2000);
+        if(login==0) {*/
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this, intro.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                    finish();
+                }
+            }, 2000);
+        /*}
+        else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this, mainscreen.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                    finish();
+                }
+            }, 2000);
 
+        }
+*/
     }
 }

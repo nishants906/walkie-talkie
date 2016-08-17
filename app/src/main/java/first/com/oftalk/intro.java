@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import github.chenupt.springindicator.SpringIndicator;
+import com.xgc1986.parallaxPagerTransformer.ParallaxPagerTransformer;
 
 public class intro extends AppCompatActivity {
     ViewPager pager;
@@ -21,7 +21,10 @@ public class intro extends AppCompatActivity {
         but= (Button) findViewById(R.id.skip);
         but1= (Button) findViewById(R.id.CONTINUE);
         next= (Button) findViewById(R.id.next);
+
         pager = (ViewPager) findViewById(R.id.mypager);
+
+        pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.mypager));
         MyPagerAdapter madapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(madapter);
         next.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +59,6 @@ public class intro extends AppCompatActivity {
         });
 
 
-        SpringIndicator springIndicator = (SpringIndicator) findViewById(R.id.indicator);
-        springIndicator.setViewPager(pager);
 
 
         but.setOnClickListener(new View.OnClickListener() {

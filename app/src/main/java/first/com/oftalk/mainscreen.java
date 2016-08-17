@@ -57,6 +57,7 @@ public class mainscreen extends Activity {
 
             }
         });
+
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

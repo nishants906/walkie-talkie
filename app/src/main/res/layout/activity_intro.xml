@@ -19,13 +19,6 @@
         android:layout_height="56dp"
         android:background="#000"/>
 
-    <github.chenupt.springindicator.SpringIndicator
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:siTextSize="18sp"
-        app:siIndicatorColor="@color/white"
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"/>
 
 <RelativeLayout
     android:layout_width="match_parent"

@@ -1,5 +1,9 @@
 package first.com.oftalk;
 
+/**
+ * Created by Test on 8/16/2016.
+ */
+
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,7 +13,7 @@ import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
-import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,12 +24,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
- * Created by Test on 8/14/2016.
+ * A fragment that manages a particular peer and allows interaction with device
+ * i.e. setting up network connection and transferring data.
  */
-public class DeviceDetailFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener {
+public class DeviceDetailFragment extends Fragment implements ConnectionInfoListener {
 
     protected static final int CHOOSE_FILE_RESULT_CODE = 20;
     private View mContentView = null;
@@ -37,7 +47,6 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +72,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
 //                            }
 //                        }
                 );
-                ((DeviceActionListener) getActivity()).connect(config);
+                ((DeviceListFragment.DeviceActionListener) getActivity()).connect(config);
 
             }
         });
@@ -73,7 +82,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
 
                     @Override
                     public void onClick(View v) {
-                        ((DeviceActionListener) getActivity()).disconnect();
+                        ((DeviceListFragment.DeviceActionListener) getActivity()).disconnect();
                     }
                 });
 
@@ -101,7 +110,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
         Uri uri = data.getData();
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending: " + uri);
-        Log.d(WiFiDirectActivity.TAG, "Intent----------- " + uri);
+        Log.d(wifi.TAG, "Intent----------- " + uri);
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
@@ -201,9 +210,9 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
         protected String doInBackground(Void... params) {
             try {
                 ServerSocket serverSocket = new ServerSocket(8988);
-                Log.d(WiFiDirectActivity.TAG, "Server: Socket opened");
+                Log.d(wifi.TAG, "Server: Socket opened");
                 Socket client = serverSocket.accept();
-                Log.d(WiFiDirectActivity.TAG, "Server: connection done");
+                Log.d(wifi.TAG, "Server: connection done");
                 final File f = new File(Environment.getExternalStorageDirectory() + "/"
                         + context.getPackageName() + "/wifip2pshared-" + System.currentTimeMillis()
                         + ".jpg");
@@ -213,13 +222,13 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
                     dirs.mkdirs();
                 f.createNewFile();
 
-                Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
+                Log.d(wifi.TAG, "server: copying files " + f.toString());
                 InputStream inputstream = client.getInputStream();
                 copyFile(inputstream, new FileOutputStream(f));
                 serverSocket.close();
                 return f.getAbsolutePath();
             } catch (IOException e) {
-                Log.e(WiFiDirectActivity.TAG, e.getMessage());
+                Log.e(wifi.TAG, e.getMessage());
                 return null;
             }
         }
@@ -233,7 +242,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
             if (result != null) {
                 statusText.setText("File copied - " + result);
                 Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setAction(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse("file://" + result), "image/*");
                 context.startActivity(intent);
             }
@@ -266,7 +275,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
             Log.v("","Time taken to transfer all bytes is : "+endTime);
 
         } catch (IOException e) {
-            Log.d(WiFiDirectActivity.TAG, e.toString());
+            Log.d(wifi.TAG, e.toString());
             return false;
         }
         return true;

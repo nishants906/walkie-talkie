@@ -1,5 +1,9 @@
 package first.com.oftalk;
 
+/**
+ * Created by Test on 8/16/2016.
+ */
+
 import android.app.IntentService;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -15,7 +19,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
- * Created by Test on 8/14/2016.
+ * A service that process each file transfer request i.e Intent by opening a
+ * socket connection with the WiFi Direct Group Owner and writing the file
  */
 public class FileTransferService extends IntentService {
 
@@ -48,23 +53,23 @@ public class FileTransferService extends IntentService {
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
 
             try {
-                Log.d(WiFiDirectActivity.TAG, "Opening client socket - ");
+                Log.d(wifi.TAG, "Opening client socket - ");
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
-                Log.d(WiFiDirectActivity.TAG, "Client socket - " + socket.isConnected());
+                Log.d(wifi.TAG, "Client socket - " + socket.isConnected());
                 OutputStream stream = socket.getOutputStream();
                 ContentResolver cr = context.getContentResolver();
                 InputStream is = null;
                 try {
                     is = cr.openInputStream(Uri.parse(fileUri));
                 } catch (FileNotFoundException e) {
-                    Log.d(WiFiDirectActivity.TAG, e.toString());
+                    Log.d(wifi.TAG, e.toString());
                 }
                 DeviceDetailFragment.copyFile(is, stream);
-                Log.d(WiFiDirectActivity.TAG, "Client: Data written");
+                Log.d(wifi.TAG, "Client: Data written");
             } catch (IOException e) {
-                Log.e(WiFiDirectActivity.TAG, e.getMessage());
+                Log.e(wifi.TAG, e.getMessage());
             } finally {
                 if (socket != null) {
                     if (socket.isConnected()) {
